@@ -1,18 +1,20 @@
 version: '3'
+
 services:
   mongodb:
     image: mongo:latest
-    ports:
-      - 27017:27017
+    container_name: group-project-35
     environment: 
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
-      - MONGO_INITDB_DATABASE=revisionQuestions
+      - MONGO_INITDB_DATABASE=revision-app
+    ports:
+      - 27017:27017
     volumes:
       - dbdata:/data/db
-      # optional - ./db/seed.js:/docker-entrypoint-initdb.d/seed.js:ro
+      # - ./db/seed.js:/docker-entrypoint-initdb.d/seed.js:ro
 volumes:
   dbdata:
-    name: questions
+    name: app_data
 
 # DB_URL=mongodb://username:password@localhost:27017/database?authSource=admin
