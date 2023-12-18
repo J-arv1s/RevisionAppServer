@@ -26,7 +26,7 @@ const register = async (req, res) => {
         const result = await User.create(data)
         console.log(result)
         res.status(201).send(result)
-    } catch (error) {
+    } catch (err) {
         res.status(404).json({ error: err.message })
     }
 }
