@@ -1,8 +1,9 @@
-const { user_accounts } = require('../db/seed')
+const user_account = require('../models/user_account')
+const quiz = require('../models/quiz')
 
 const index = async (req, res) => {
-    const users = await user_accounts.find()
-    res.status(200).json(users)
+    const quizes = await quiz.find()
+    res.status(200).json(quizes)
 }
 
 module.exports = {
