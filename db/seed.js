@@ -1,4 +1,4 @@
-const user_account = require('../models/user_account')
+const user_account = require('../models/user')
 const subject = require('../models/subject')
 const quiz = require('../models/quiz')
 
