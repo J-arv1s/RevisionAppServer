@@ -1,53 +1,58 @@
-// const mongoose = require('mongoose');
-// const { v4: uuidv4 } = require('uuid');
-
-// const Token = mongoose.model('token', new mongoose.Schema({
-//     token:  {
-//         type: String,
-//         default: uuidv4,
-//     },
-//     user: { type: mongoose.Schema.Types.ObjectId, ref: 'user_account' },
-// }))
-
-
-
-
-// module.exports = Token;
-
-const mongoose = require('mongoose');
+const { ObjectId } = require("mongodb")
 const { v4: uuidv4 } = require('uuid');
 
-const TokenSchema = mongoose.model('token', new mongoose.Schema({
-    token:  {
-        type: String,
-        required: true,
-    },
-    user_id: { type: mongoose.SchemaTypes.ObjectId, ref: 'user_account', required: true },
-}))
+const client = require("../db/setup")
 
+class Token {
   
-    TokenSchema.statics.create = async function(user_id) {
-      const token = new TokenSchema({ user_id, token: uuidv4() });
-      const newToken = await token.save();
-      return new Token(newToken.toObject());
-    }
-  
-    TokenSchema.statics.getOneById = async function(id) {
-      const token = await TokenSchema.findById(id);
-      if (!token) {
-        throw new Error('Unable to locate token.');
-      } else {
-        return new Token(token.toObject());
-      }
-    }
-  
-    TokenSchema.statics.getOneByToken = async function(token) {
-      const token = await TokenSchema.findOne({ token });
-      if (!token) {
-        throw new Error('Unable to locate token.');
-      } else {
-        return new Token(token.toObject());
-      }
-    }
+  constructor(data) {
+    this.id = data.id;
+    this.user_id = data.user_id;
+    this.token = data.token;
+  }
 
-  module.exports = TokenSchema;
+  static async create(user_id) {
+    await client.connect()
+    const token = uuidv4()
+    const response = await client.db("token").collection("token").insertOne({
+      user_id: user_id,
+      token: token
+    })
+    const newId = response.insertedId;
+    const newToken = await Token.getOneById(newId);
+    return newToken;
+  }
+
+  static async getOneById(idx) {
+    await client.connect();
+    const id = new ObjectId(idx);
+    const response = await client.db("token").collection("token").findOne({
+      _id: id
+    });
+    if (!response) {
+      throw new Error("Unable to locate token.");
+    }
+    const token = new Token(response);
+    token.id = response._id;
+    return token;
+  }
+
+  static async getOneByToken(token) {
+    await client.connect();
+    const response = await client
+      .db("token")
+      .collection("token")
+      .findOne({ token: token });
+    
+    if (!response) {
+      throw new Error("Unable to locate token.");
+    }
+  
+    const foundToken = new Token(response);
+    foundToken.id = response._id;
+    return foundToken;
+  }
+
+}
+
+module.exports = Token;
