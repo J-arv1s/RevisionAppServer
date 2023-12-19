@@ -34,7 +34,7 @@ describe('Quiz model', () => {
 
     it('should fetch an empty response when searching for non-exisitent quiz', async () => {
         const q = await quiz.findByName('hidden_quiz')
-        expect(q).toHaveLength(0)
+        expect(q).not.toBeDefined()
     })
 
     it('should fecth a response when searching for a exisiting quiz', async () => {

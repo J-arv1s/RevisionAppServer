@@ -16,7 +16,7 @@ const seed_DB = async () => {
         await User.insertMany([
             { username: 'jarvis', password: '123' },
             { username: 'tahha', password: '123' },
-            { username: 'admin', password: 'admin', is_admin: true },
+            { username: 'admin', password: 'admin', isAdmin: true },
         ])
 
         const subjects = await subject.insertMany([
