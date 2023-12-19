@@ -27,18 +27,3 @@ const subjectSchema = new Schema({
 
 const Subject = mongoose.model('Subject', subjectSchema)
 module.exports = Subject
-
-// tokenSchema.statics.create = async function(user_id) { 
-//     const token = new this({ user_id, token: uuidv4() });
-//     return await token.save();
-//   }
-
-
-// userSchema.statics.create = async function (data) {
-//     const { username, password, isAdmin = false } = data;
-//     const newUser = new this({ username, password, isAdmin });
-//     return await newUser.save(); 
-//   };
-
-// const User = mongoose.model('User', userSchema);
-// module.exports = User;
