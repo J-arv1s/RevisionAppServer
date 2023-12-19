@@ -39,4 +39,4 @@ describe('User model', () => {
         expect(user.username).toBe('Tahha');
       });
           
-        })
+})

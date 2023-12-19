@@ -9,7 +9,7 @@ const { seed_DB } = require('./db/seed')
 const app = express()
 
 const PORT = process.env.PORT || 3000;
-const MONGO_URL = process.env.MONGO_URL 
+const MONGO_URL = process.env.MONGO_URI
 
 // adding express routes
 app.use('/app', db_routes)
