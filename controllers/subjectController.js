@@ -16,11 +16,12 @@ const index = async (req, res) => {
 //     res.status(200).json(sub)
 // }
 
+
 const show = async (req, res) => {
     const { subject_name } = req.params
-    const subject = await Subject.getOneByName({ subject_name: subject_name })
+    const subject = await Subject.getOneByName(subject_name)
     res.status(200).json(subject)
-}
+  }
 
 const create = async (req, res) => {
     const { subject_name }  = req.body
