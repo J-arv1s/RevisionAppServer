@@ -11,6 +11,6 @@ mongoose.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: tru
   })
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
-  });
+  })
 
-module.exports = mongoose.connection;
+// module.exports = mongoose.connection;
