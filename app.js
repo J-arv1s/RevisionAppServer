@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-
 const logger = require('morgan')
 
 const userRoutes = require('./routes/userRoutes')
@@ -13,16 +12,16 @@ app.use(express.json())
 app.use(cors())
 app.use(logger('dev'))
 
+// adding express routes
+app.use('/users', userRoutes)
+app.use('/subjects', subjectRoutes)
+app.use('/quizzes', quizRoutes)
+
 app.get('/', (req, res) => {
     res.json({
         "RevisionApp": "Welcome"
     })
 })
 
-// adding express routes
-app.use('/users', userRoutes)
-app.use('/subjects', subjectRoutes)
-app.use('/quizzes', quizRoutes)
 
 module.exports = app
-

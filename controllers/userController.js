@@ -4,11 +4,8 @@ const TokenModel = require("../models/token")
 
 const index = async (req, res) => {
     try {
-        const user = await User.getAll()
-        res.status(200).json({
-            "success": true,
-            "user": user
-        })
+        const users = await User.getAll()
+        res.status(200).json(users)
     } catch (e) {
         res.status(500).json({
             "success": false,

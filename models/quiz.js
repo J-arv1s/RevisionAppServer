@@ -33,4 +33,5 @@ quiz_schema.statics.updateByName = async function (name, update_data) {
 }
 
 const quiz = mongoose.model('quiz', quiz_schema)
+
 module.exports = quiz
