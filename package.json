@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "test": "jest --coverage --watchAll --detectOpenHandles"
+    "dev": "nodemon index.js",
+    "test": "jest --coverage --watchAll --detectOpenHandles",
+    "start": "node db/setup.js"
   },
   "keywords": [],
   "author": "",
