@@ -2,6 +2,8 @@ require('dotenv').config()
 
 const mongoose = require('mongoose')
 const express = require('express')
+const cors = require('cors')
+const logger = require('morgan')
 
 const { seed_DB } = require('./db/seed')
 
@@ -11,6 +13,11 @@ const quiz_routes = require('./routes/quiz_routes')
 
 //express app
 const app = express()
+
+// middleware
+app.use(express.json())
+app.use(cors())
+app.use(logger('dev'))
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL 

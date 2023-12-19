@@ -33,26 +33,26 @@ describe('Quiz model', () => {
     })
 
     it('should fetch an empty response when searching for non-exisitent quiz', async () => {
-        const q = await quiz.get_by_name('hidden_quiz')
+        const q = await quiz.findByName('hidden_quiz')
         expect(q).toHaveLength(0)
     })
 
     it('should fecth a response when searching for a exisiting quiz', async () => {
-        const new_quiz = await quiz.create_one({
+        const new_quiz = await quiz.createOne({
             quiz_name: 'real_quiz', 
             questions: []
         })
 
-        const q = await quiz.get_by_name('real_quiz')
+        const q = await quiz.findByName('real_quiz')
         expect(q).toHaveLength(1)
     })
 
     it('should fetch list of quizzes', async () => {
-        const new_quiz = await quiz.create_one({
+        const new_quiz = await quiz.createOne({
             quiz_name: 'test_quiz', 
             questions: []
         })
-        const new_quiz2 = await quiz.create_one({
+        const new_quiz2 = await quiz.createOne({
             quiz_name: 'test_quiz2', 
             questions: [
                 { question: 'Question 1?', answer: 'Answer 1' },
@@ -70,7 +70,7 @@ describe('Quiz model', () => {
                 { question: 'Question 1?', answer: 'Answer 1' },
             ]
         }
-        const new_quiz = await quiz.create_one(data)
+        const new_quiz = await quiz.createOne(data)
 
         expect(new_quiz).toBeDefined()
         expect(new_quiz.quiz_name).toBe(data.quiz_name)
