@@ -1,5 +1,5 @@
 const User = require('../models/user')
-const subject = require('../models/subject')
+const Subject = require('../models/subject')
 const quiz = require('../models/quiz')
 const TokenModel = require('../models/token')
 
@@ -8,7 +8,7 @@ const seed_DB = async () => {
     try {
         // Clearing exisiting data in our collections/models
         await User.deleteMany({})
-        await subject.deleteMany({})
+        await Subject.deleteMany({})
         await quiz.deleteMany({})
         await TokenModel.deleteMany({})
 
@@ -19,7 +19,7 @@ const seed_DB = async () => {
             { username: 'admin', password: 'admin', isAdmin: true },
         ])
 
-        const subjects = await subject.insertMany([
+        const subjects = await Subject.insertMany([
             { subject_name: 'science', quizes: [] },
             { subject_name: 'history', quizes: [] },
         ])
