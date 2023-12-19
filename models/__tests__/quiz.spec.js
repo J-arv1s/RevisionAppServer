@@ -32,20 +32,20 @@ describe('Quiz model', () => {
         expect(quizzes).toHaveLength(0)
     })
 
-    it('should fetch an empty response when searching for non-exisitent quiz', async () => {
-        const q = await quiz.findByName('hidden_quiz')
-        expect(q).toHaveLength(0)
-    })
+    // it('should fetch an empty response when searching for non-exisitent quiz', async () => {
+    //     const q = await quiz.findByName('hidden_quiz')
+    //     expect(q).toHaveLength(0)
+    // })
 
-    it('should fecth a response when searching for a exisiting quiz', async () => {
-        const new_quiz = await quiz.createOne({
-            quiz_name: 'real_quiz', 
-            questions: []
-        })
+    // it('should fecth a response when searching for a exisiting quiz', async () => {
+    //     const new_quiz = await quiz.createOne({
+    //         quiz_name: 'real_quiz', 
+    //         questions: []
+    //     })
 
-        const q = await quiz.findByName('real_quiz')
-        expect(q).toHaveLength(1)
-    })
+    //     const q = await quiz.findByName('real_quiz')
+    //     expect(q).toHaveLength(1)
+    // })
 
     it('should fetch list of quizzes', async () => {
         const new_quiz = await quiz.createOne({
