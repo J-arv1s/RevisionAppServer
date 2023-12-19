@@ -31,12 +31,12 @@ describe('User model', () => {
       });
 
       it('should retrieve a user by ID', async () => {
-        const createdUser = await User.create({ username: 'Alice', password: 'password1' });
+        const createdUser = await User.create({ username: 'Tahha', password: 'password1' });
   
         const user = await User.getOneById(createdUser._id);
   
         expect(user._id.toString()).toBe(createdUser._id.toString());
-        expect(user.username).toBe('Alice');
+        expect(user.username).toBe('Tahha');
       });
           
         })
