@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
-const subject = mongoose.model('subject', new mongoose.Schema({
+const Subject = mongoose.model('Subject', new mongoose.Schema({
     subject_name: String,
-    quizes: [{
+    quizzes: [{
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'quiz',
     }],
 }))
-module.exports = subject
+module.exports = Subject

@@ -1,41 +1,50 @@
-const quiz = require('../models/quiz')
+const { Quiz, Question } = require('../models/quiz')
 
 const index = async (req, res) => {
-    const quizes = await quiz.find()
-    res.status(200).json(quizes)
+    const quizzes = await Quiz.find()
+    res.status(200).json(quizzes)
 }
 
 const show = async (req, res) => {
     const { quizname } = req.params
-    const q = await quiz.findByName(quizname)
+    const q = await Quiz.findByName(quizname)
     res.status(200).json(q)
 }
 
 const create = async (req, res) => {
     const data  = req.body
-    const new_quiz = await quiz.createOne(data)
-    res.status(201).json(new_quiz)
+    const newQuiz = await Quiz.createOne(data)
+    res.status(201).json(newQuiz)
 }
 
 const update = async (req, res) => {
     const { quizname } = req.params
-    const update_data = req.body
+    const updatedName = req.body.quizName
 
-    const updated_quiz = await quiz.updateByName(quizname, update_data)
-    res.status(200).json(updated_quiz)
+    const updatedQuiz = await Quiz.updateByName(quizname, updatedName)
+    res.status(200).json(updatedQuiz)
 }
 
 const destroy = async (req, res) => {
     const { quizname } = req.params
 
-    const deleted_quiz = await quiz.findOneAndDelete({quiz_name: quizname})
-    res.status(204).json(deleted_quiz)
+    const deletedQuiz = await Quiz.findOneAndDelete({quizName: quizname})
+    res.status(204).json(deletedQuiz)
 }
 
+const addQuestion = async (req, res) => {
+    const { quizname } = req.params
+    const questionData = req.body
+
+    const updatedQuiz = await Quiz.addQuestion(quizname, questionData)
+    res.status(201).json(updatedQuiz)
+}
+ 
 module.exports = {
     index,
     show,
     create,
     update,
-    destroy
+    destroy,
+    addQuestion
 }
