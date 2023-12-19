@@ -25,7 +25,7 @@ const MONGO_URL = process.env.MONGO_URL
 // adding express routes
 app.use('/users', user_routes)
 app.use('/subjects', subject_routes)
-app.use('/quizes', quiz_routes)
+app.use('/quizzes', quiz_routes)
 
 mongoose.connect(MONGO_URL)
     .then(()=> {
