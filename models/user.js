@@ -1,64 +1,29 @@
-const { ObjectId } = require("mongodb")
-const client = require("../db/setup")
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-class User {
+const userSchema = new Schema({
+  username: { type: String, required: true },
+  password: { type: String, required: true },
+  isAdmin: { type: Boolean, default: false },
+});
 
-    constructor(data) {
-        this.id = data.id;
-        this.username = data.username;
-        this.password = data.password;
-        this.isAdmin = data.is_admin;
-    }
+userSchema.statics.getAll = async function () {
+  return await this.find();
+};
 
-    static async getAll() {
-        await client.connect()
-        const response = await client.db('user_account').collection('user_account').find()
-        const allValues = await response.toArray()
-        return allValues
-    }
+userSchema.statics.getOneById = async function (id) {
+  return await this.findById(id);
+};
 
-    static async getOneById(idx) {
-        await client.connect()
+userSchema.statics.getOneByUsername = async function (username) {
+  return await this.findOne({ username });
+};
 
-        const id = new ObjectId(idx)
-        const response = await client.db('user_account').collection('user_account').find({
-            _id: id,
-        })
+userSchema.statics.create = async function (data) {
+    const { username, password, isAdmin = false } = data;
+    const newUser = new this({ username, password, isAdmin });
+    return await newUser.save(); 
+  };
 
-        const value = await response.toArray()
-
-        const user = new User(value[0])
-        user['id'] = id
-        return user;
-    }
-
-    static async getOneByUsername(username) {
-        await client.connect();
-
-        const response = await client.db('user_account').collection('user_account').find({
-            username: username
-        });
-
-        const value = await response.toArray();
-
-        const user = new User(value[0]);
-        user['username'] = username;
-        return user;
-
-    }
-
-    static async create(data) {
-        await client.connect()
-
-        const { username, password, isAdmin=false } = data;
-        
-        const response = await client.db('user_account').collection('user_account').insertOne({
-            username: username,
-            password: password,
-            isAdmin,
-        })
-        return "User created"
-    }
-}
-
+const User = mongoose.model('User', userSchema);
 module.exports = User;

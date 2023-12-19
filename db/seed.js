@@ -1,17 +1,19 @@
-const user_account = require('../models/user')
+const User = require('../models/user')
 const subject = require('../models/subject')
 const quiz = require('../models/quiz')
+const TokenModel = require('../models/token')
 
 
 const seed_DB = async () => {
     try {
         // Clearing exisiting data in our collections/models
-        await user_account.deleteMany({})
+        await User.deleteMany({})
         await subject.deleteMany({})
         await quiz.deleteMany({})
+        await TokenModel.deleteMany({})
 
         // Inserting sample data into our collections/models
-        await user_account.insertMany([
+        await User.insertMany([
             { username: 'jarvis', password: '123' },
             { username: 'tahha', password: '123' },
             { username: 'admin', password: 'admin', is_admin: true },

@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const Token = require("../models/token")
+const TokenModel = require("../models/token")
 
 const index = async (req, res) => {
     try {
@@ -40,7 +40,7 @@ const login = async (req, res) => {
         if (!authenticated) {
             throw new Error("Incorrect credentials");
         } else {
-            const token = await Token.create(user.id)
+            const token = await TokenModel.create(user.id)
             res.status(200).json({ authenticated: true, token: token.token })
         }
     } catch (err) {

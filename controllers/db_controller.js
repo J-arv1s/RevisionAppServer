@@ -1,4 +1,4 @@
-const user_account = require('../models/user_account')
+const user = require('../models/user')
 const quiz = require('../models/quiz')
 
 const index = async (req, res) => {

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Token = require('../models/token')
+const TokenModel = require('../models/token')
 
 async function authenticator(req, res, next) {
     try {
@@ -9,7 +9,7 @@ async function authenticator(req, res, next) {
         if (!userToken) {
             throw new Error("User not authenticated")
         } else {
-            const validToken = await Token.getOneByToken(userToken)
+            const validToken = await TokenModel.getOneByToken(userToken)
             if (!validToken) {
                 throw new Error("Not a valid token")
             } else {
