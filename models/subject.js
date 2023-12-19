@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
-
 const subjectSchema = new Schema({
     subject_name: { type: String, required: true },
     quizesId: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'quiz' }]

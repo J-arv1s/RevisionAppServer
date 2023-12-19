@@ -10,7 +10,7 @@ const show_by_name = async (req, res) => {
     const { subjectname } = req.params
     const sub = await subject.findOne( { subject_name: subjectname })
         .populate({
-            path: 'quizes',
+            path: 'quizzes',
             select: 'quiz_name',
         })
     res.status(200).json(sub)
