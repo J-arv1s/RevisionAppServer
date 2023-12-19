@@ -12,7 +12,6 @@ services:
       - 27017:27017
     volumes:
       - dbdata:/data/db
-      # - ./db/seed.js:/docker-entrypoint-initdb.d/seed.js:ro
 volumes:
   dbdata:
     name: app_data

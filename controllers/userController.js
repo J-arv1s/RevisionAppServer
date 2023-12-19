@@ -48,6 +48,18 @@ const login = async (req, res) => {
     }
 }
 
+    const show = async (req, res) => {
+        const { username } = req.params
+        const user = await user_account.findOne( { username: username })
+        res.status(200).json(user)
+    }
+
+    const destroy = async (req, res) => {
+        const { id } = req.params
+        const user_to_delete = await user_account.findOneAndDelete({_id: id})
+        res.status(204).json(user_to_delete)
+    }
+
 module.exports = {
-    register, login
+    index, register, login, show, destroy
 }

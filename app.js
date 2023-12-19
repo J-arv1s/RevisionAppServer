@@ -3,6 +3,10 @@ const cors = require('cors')
 
 const logger = require('morgan')
 
+const userRoutes = require('./routes/userRoutes')
+const subjectRoutes = require('./routes/subjectRoutes')
+const quizRoutes = require('./routes/quizRoutes')
+
 //express app
 const app = express()
 app.use(express.json())
@@ -15,26 +19,10 @@ app.get('/', (req, res) => {
     })
 })
 
+// adding express routes
+app.use('/users', userRoutes)
+app.use('/subjects', subjectRoutes)
+app.use('/quizzes', quizRoutes)
+
 module.exports = app
 
-
-// const PORT = process.env.PORT || 3000;
-// const MONGO_URL = process.env.MONGO_URI
-
-// // adding express routes
-// app.use('/app', db_routes)
-
-// mongoose
-//     .connect(MONGO_URL)
-
-//     .then(()=> {
-//         // seeding database
-//         seed_DB()
-//         // starting express server
-//         app.listen(PORT, () => {
-//             console.log(`Listening on port: ${PORT}`)
-//         })
-//     })
-//     .catch((error)=> {
-//         console.log(`Error connecting to MongoDB: ${error}`)
-//     })
