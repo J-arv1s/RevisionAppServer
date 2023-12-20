@@ -1,37 +1,47 @@
 const mongoose = require('mongoose')
 
-const question_schema = new mongoose.Schema({
+const questionSchema = new mongoose.Schema({
     question: String,
     answer: String,
 })
 
-const quiz_schema = new mongoose.Schema({
-    quiz_name: String,
-    questions: [ question_schema ],
+const quizSchema = new mongoose.Schema({
+    quizName: String,
+    questions: [ questionSchema ],
 })
 
-quiz_schema.statics.findByName = function (name) {
-    return this.findOne({ quiz_name: name})
+quizSchema.statics.findByName = function (name) {
+    return this.findOne({ quizName: name})
 }
 
-quiz_schema.statics.createOne = async function (quiz_data) {
-    const new_quiz = new this(quiz_data)
-    await new_quiz.save()
-    return new_quiz
+quizSchema.statics.createOne = async function (quizData) {
+    const newQuiz = new this(quizData)
+    await newQuiz.save()
+    return newQuiz
 }
 
-quiz_schema.statics.updateByName = async function (name, update_data) {
+quizSchema.statics.updateByName = async function (name, updateData) {
     const quiz = await this.findByName(name)
-
     // if update_data has a quiz_name then it is assigned to quiz otherwise it keeps what it already has
-    quiz.quiz_name = update_data.quiz_name || quiz.quiz_name
-    // if update_data has a questions arr then it is assigned to quiz otherwise it keeps what it already has
-    quiz.questions = update_data.questions || quiz.questions
+    quiz.name = updateData.quizName || quiz.name
 
-    const updated_quiz = await quiz.save()
-    return updated_quiz
+    const updatedQuiz = await quiz.save()
+    return updatedQuiz
 }
 
-const quiz = mongoose.model('quiz', quiz_schema)
+quizSchema.statics.addQuestion = async function (name, questionData) {
+    const quiz = await this.findByName(name)
+    if (!quiz) {
+        return {message: "Quiz does not exist"}
+    }
 
-module.exports = quiz
+    quiz.questions.push(questionData)
+    const updatedQuiz = await quiz.save()
+
+    return updatedQuiz
+}
+
+const Quiz = mongoose.model('Quiz', quizSchema)
+const Question = mongoose.model('Question', quizSchema)
+
+module.exports = { Quiz, Question }
