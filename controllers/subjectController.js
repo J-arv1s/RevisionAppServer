@@ -34,9 +34,22 @@ const destroy = async (req, res) => {
     res.status(204).json(subjectDelete)
 }
 
+const update = async (req, res) => {
+    try {
+        const { subjectName } = req.params;
+        const data = req.body;
+
+        const updatedSubject = await Subject.updateOneByName(subjectName, data);
+        res.status(200).json(updatedSubject);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 module.exports = {
     index,
     show,
     create,
-    destroy
+    destroy,
+    update
 }

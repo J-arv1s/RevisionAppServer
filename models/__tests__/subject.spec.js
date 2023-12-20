@@ -26,16 +26,17 @@ describe('Subject model', () => {
     afterAll(disconnect)
 
     it('should create a new subject', async () => {
-        const subject_name = 'Mathematics';
-        const subject = await Subject.createOne(subject_name);
-        expect(subject.subject_name).toBe(subject_name);
+        const subjectName = 'Mathematics';
+        const subject = await Subject.createOne(subjectName);
+        expect(subject.subjectName).toBe(subjectName);
       });
     
       it('should retrieve a subject by its name', async () => {
-        const subject_name = 'Science';
-        await Subject.createOne(subject_name);
-        const subject = await Subject.getOneByName(subject_name);
-        expect(subject.subject_name).toBe(subject_name);
+        const subjectName = 'Science';
+        await Subject.createOne(subjectName);
+        const subject = await Subject.getOneByName(subjectName);
+        expect(subject.subjectName).toBe(subjectName);
       });
     
 })
+

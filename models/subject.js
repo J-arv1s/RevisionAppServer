@@ -27,5 +27,9 @@ subjectSchema.statics.createOne = async function (subjectName) {
   return subject;
 };
 
+subjectSchema.statics.updateOneByName = async function (subjectName, data) {
+  return await this.findOneAndUpdate({ subjectName }, data, { new: true });
+};
+
 const Subject = mongoose.model('Subject', subjectSchema)
 module.exports = Subject
