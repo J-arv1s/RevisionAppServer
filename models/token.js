@@ -7,7 +7,7 @@ const tokenSchema = new Schema({
   token: { type: String, required: true },
 });
 
-tokenSchema.statics.create = async function(user_id) { 
+tokenSchema.statics.createOne = async function(user_id) { 
   const token = new this({ user_id, token: uuidv4() });
   return await token.save();
 }
