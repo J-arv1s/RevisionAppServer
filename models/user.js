@@ -21,7 +21,7 @@ userSchema.statics.getOneByUsername = async function (username) {
   return await this.findOne({ username });
 };
 
-userSchema.statics.create = async function (data) {
+userSchema.statics.createOne = async function (data) {
     const { username, password, isAdmin = false } = data;
     const newUser = new this({ username, password, isAdmin });
     return await newUser.save(); 
