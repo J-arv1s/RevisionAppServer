@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const subjectSchema = new Schema({
-    subject_name: { type: String, required: true },
-    quizesId: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'quiz' }]
+    subjectName: { type: String, required: true },
+    quizesId: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Quiz' }]
   });
 
   subjectSchema.statics.getAll = async function () {
@@ -14,12 +14,12 @@ const subjectSchema = new Schema({
     return await this.findById(id);
   }
 
-  subjectSchema.statics.getOneByName = async function (subject_name) {
-    return await this.findOne({ subject_name })
+  subjectSchema.statics.getOneByName = async function (subjectName) {
+    return await this.findOne({ subjectName })
   }
 
-  subjectSchema.statics.create = async function(subject_name) {
-    const subject = new this({ subject_name: subject_name });
+  subjectSchema.statics.create = async function(subjectName) {
+    const subject = new this({ subjectName: subjectName });
     await subject.save();
     return subject;
   };
