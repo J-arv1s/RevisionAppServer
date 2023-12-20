@@ -23,7 +23,7 @@ const show = async (req, res) => {
   }
 
 const create = async (req, res) => {
-    const { subjectName }  = req.body
+    const { subjectName } = req.body
     const newSubject = await Subject.createOne(subjectName)
     res.status(201).json(newSubject)
 }

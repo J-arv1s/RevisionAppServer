@@ -1,4 +1,5 @@
-const { Quiz, Question } = require('../models/quiz')
+const { default: mongoose } = require('mongoose')
+const Quiz = require('../models/quiz')
 
 const index = async (req, res) => {
     const quizzes = await Quiz.find()
@@ -32,7 +33,7 @@ const destroy = async (req, res) => {
     res.status(204).json(deletedQuiz)
 }
 
-const addQuestion = async (req, res) => {
+const createQuestion = async (req, res) => {
     const { quizname } = req.params
     const questionData = req.body
 
@@ -40,15 +41,26 @@ const addQuestion = async (req, res) => {
     res.status(201).json(updatedQuiz)
 }
 
-const removeQuestion = async (req, res) => {
-    
+const destroyQuestion = async (req, res) => {
+    const name = req.params.quizname
+    const id = req.params.id
+    if (!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: 'Not a valid id'})
+    }
+    const quizToUpdate = await Quiz.findByName(name)
+    if (!quizToUpdate) {
+        return res.status(404).json({ error: "Quiz not found" });
+    }
+    const updatedQuiz = await quizToUpdate.removeQuestion(id)
+    res.status(204).json(updatedQuiz)
 }
- 
+
 module.exports = {
     index,
     show,
     create,
     update,
     destroy,
-    addQuestion
+    createQuestion,
+    destroyQuestion
 }
