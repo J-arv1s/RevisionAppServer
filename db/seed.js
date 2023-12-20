@@ -19,10 +19,19 @@ const seed_DB = async () => {
             { username: 'admin', password: 'admin', isAdmin: true },
         ])
 
-        const subjects = await Subject.insertMany([
-            { subjectName: 'science', quizzes: [] },
-            { subjectName: 'history', quizzes: [] },
-        ])
+        // const subjects = await Subject.insertMany([
+        //     { subjectName: 'science', quizzes: [] },
+        //     { subjectName: 'history', quizzes: [] },
+        // ])
+
+        const scienceSubject = await Subject.create({
+            subjectName: 'science',
+            quizzesId: [],
+        })
+        const historySubject = await Subject.create({
+            subjectName: 'history',
+            quizzesId: [],
+        })
 
         const scienceQuiz = await Quiz.create({
             quizName: 'science-quiz', 
@@ -40,9 +49,8 @@ const seed_DB = async () => {
             ],
         })
 
-        const [scienceSubject, historySubject] = subjects
-        scienceSubject.quizzes.push(scienceQuiz._id)
-        historySubject.quizzes.push(historyQuiz._id)
+        scienceSubject.quizzesId.push(scienceQuiz._id)
+        historySubject.quizzesId.push(historyQuiz._id)
         
         await scienceSubject.save()
         await historySubject.save()

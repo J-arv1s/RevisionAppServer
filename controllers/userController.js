@@ -20,7 +20,7 @@ const register = async (req, res) => {
         const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS))
         data.password = await bcrypt.hash(data.password, salt)
 
-        const result = await User.create(data)
+        const result = await User.createOne(data)
         console.log(result)
         res.status(201).send(result)
     } catch (err) {
