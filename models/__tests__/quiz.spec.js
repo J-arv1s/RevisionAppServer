@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const { MongoMemoryServer } = require('mongodb-memory-server') 
-const quiz = require('../quiz')
+const { Quiz }= require('../quiz')
 
 let mongoDb = MongoMemoryServer
 
@@ -28,55 +28,40 @@ describe('Quiz model', () => {
 
 
     it('should fetch an empty list of quizzes', async () => {
-        const quizzes = await quiz.find()
+        const quizzes = await Quiz.find()
         expect(quizzes).toHaveLength(0)
     })
 
-    // it('should fetch an empty response when searching for non-exisitent quiz', async () => {
-    //     const q = await quiz.findByName('hidden_quiz')
-    //     expect(q).toHaveLength(0)
-    // })
-
-    // it('should fecth a response when searching for a exisiting quiz', async () => {
-    //     const new_quiz = await quiz.createOne({
-    //         quiz_name: 'real_quiz', 
-    //         questions: []
-    //     })
-
-    //     const q = await quiz.findByName('real_quiz')
-    //     expect(q).toHaveLength(1)
-    // })
-
     it('should fetch list of quizzes', async () => {
-        const new_quiz = await quiz.createOne({
-            quiz_name: 'test_quiz', 
+        const newQuiz = await Quiz.createOne({
+            quizName: 'test_quiz', 
             questions: []
         })
-        const new_quiz2 = await quiz.createOne({
-            quiz_name: 'test_quiz2', 
+        const newQuiz2 = await Quiz.createOne({
+            quizName: 'test_quiz2', 
             questions: [
                 { question: 'Question 1?', answer: 'Answer 1' },
                 { question: 'Question 2?', answer: 'Answer 2' },
             ]
         })
-        const quizzes = await quiz.find()
+        const quizzes = await Quiz.find()
         expect(quizzes).toHaveLength(2)
     })
 
     it('creates a new quiz', async () => {
         const data = {
-            quiz_name: 'test_quiz', 
+            quizName: 'testQuiz', 
             questions: [
                 { question: 'Question 1?', answer: 'Answer 1' },
             ]
         }
-        const new_quiz = await quiz.createOne(data)
+        const newQuiz = await Quiz.createOne(data)
 
-        expect(new_quiz).toBeDefined()
-        expect(new_quiz.quiz_name).toBe(data.quiz_name)
+        expect(newQuiz).toBeDefined()
+        expect(newQuiz.quizName).toBe(data.quizName)
 
-        const get_quiz = await quiz.findById(new_quiz._id)
-        expect(get_quiz).toBeDefined()
-        expect(get_quiz.quiz_name).toBe('test_quiz')
+        const getQuiz = await Quiz.findById(newQuiz._id)
+        expect(getQuiz).toBeDefined()
+        expect(getQuiz.quizName).toBe('testQuiz')
     })
 })
