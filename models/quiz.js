@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
+const { Schema } = mongoose;
 
-const questionSchema = new mongoose.Schema({
+const questionSchema = new Schema({
     question: String,
     answer: String,
 })
 
-const quizSchema = new mongoose.Schema({
+const quizSchema = new Schema({
     quizName: String,
     questions: [ questionSchema ],
 })

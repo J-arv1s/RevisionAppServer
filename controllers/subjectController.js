@@ -17,20 +17,20 @@ const index = async (req, res) => {
 // }
 
 const show = async (req, res) => {
-    const { subject_name } = req.params
-    const subject = await Subject.getOneByName(subject_name)
+    const { subjectname } = req.params
+    const subject = await Subject.getOneByName(subjectname)
     res.status(200).json(subject)
   }
 
 const create = async (req, res) => {
-    const { subject_name }  = req.body
-    const newSubject = await Subject.create(subject_name)
+    const { subjectName }  = req.body
+    const newSubject = await Subject.create(subjectName)
     res.status(201).json(newSubject)
 }
 
 const destroy = async (req, res) => {
-    const { subject_name } = req.params
-    const subjectDelete = await Subject.findOneAndDelete({subject_name: subject_name})
+    const { subjectname } = req.params
+    const subjectDelete = await Subject.findOneAndDelete({subjectName: subjectname})
     res.status(204).json(subjectDelete)
 }
 

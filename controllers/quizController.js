@@ -39,6 +39,10 @@ const addQuestion = async (req, res) => {
     const updatedQuiz = await Quiz.addQuestion(quizname, questionData)
     res.status(201).json(updatedQuiz)
 }
+
+const removeQuestion = async (req, res) => {
+    
+}
  
 module.exports = {
     index,
