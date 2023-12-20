@@ -41,8 +41,11 @@ const addQuestion = async (req, res) => {
 }
 
 const removeQuestion = async (req, res) => {
-    
-}
+    const { quizname, questionid } = req.params;
+
+    const updatedQuiz = await Quiz.deleteQuestion(quizname, questionid);
+    res.status(200).json(updatedQuiz);
+};
  
 module.exports = {
     index,
@@ -50,5 +53,6 @@ module.exports = {
     create,
     update,
     destroy,
-    addQuestion
+    addQuestion,
+    removeQuestion
 }
