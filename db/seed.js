@@ -1,6 +1,6 @@
 const User = require('../models/user')
 const Subject = require('../models/subject')
-const Quiz = require('../models/quiz')
+const { Quiz } = require('../models/quiz')
 const TokenModel = require('../models/token')
 
 
