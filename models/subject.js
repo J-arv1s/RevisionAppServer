@@ -14,12 +14,12 @@ const subjectSchema = new Schema({
     return await this.findById(id);
   }
 
-  subjectSchema.statics.getOneBySubject = async function (subject_name) {
+  subjectSchema.statics.getOneByName = async function (subject_name) {
     return await this.findOne({ subject_name })
   }
 
   subjectSchema.statics.create = async function(subject_name) {
-    const subject = new this({ subject_name });
+    const subject = new this({ subject_name: subject_name });
     await subject.save();
     return subject;
   };
