@@ -14,7 +14,8 @@ const show = async (req, res) => {
 
 const create = async (req, res) => {
     const data  = req.body
-    const newQuiz = await Quiz.createOne(data)
+    const { subject } = req.body
+    const newQuiz = await Quiz.createOne(data, subject)
     res.status(201).json(newQuiz)
 }
 

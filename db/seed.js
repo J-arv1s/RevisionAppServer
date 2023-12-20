@@ -1,6 +1,6 @@
 const User = require('../models/user')
 const Subject = require('../models/subject')
-const { Quiz } = require('../models/quiz')
+const Quiz = require('../models/quiz')
 const TokenModel = require('../models/token')
 
 
@@ -14,8 +14,8 @@ const seed_DB = async () => {
 
         // Inserting sample data into our collections/models
         await User.insertMany([
-            { username: 'jarvis', password: '123' },
-            { username: 'tahha', password: '123' },
+            { username: 'jarvis', password: '123', combinedScore: 1 },
+            { username: 'tahha', password: '123', combinedScore: 4 },
             { username: 'admin', password: 'admin', isAdmin: true },
         ])
 
@@ -36,16 +36,28 @@ const seed_DB = async () => {
         const scienceQuiz = await Quiz.create({
             quizName: 'science-quiz', 
             questions: [
-                { question: 'Chemincal compound of water?', answer: 'h2o' },
-                { question: 'Humans breath what?', answer: 'oxygen' },
+                { question: 'Chemincal compound of water?', 
+                  answer: 'h2o',
+                  wrongAnswers: ['he2o', 'o2', 'h2'] 
+                },
+                { question: 'Humans need to breath what?', 
+                  answer: 'oxygen',
+                  wrongAnswers: ['water', 'helium', 'carbon'],
+                },
             ],
         })
 
         const historyQuiz = await Quiz.create({
             quizName: 'history-quiz', 
             questions: [
-                { question: 'Henry VII had x wives?', answer: '6' },
-                { question: 'England fought which country for 100years?', answer: 'france' },
+                { question: 'Henry VII had x wives?',
+                  answer: '6',
+                  wrongAnswer: ['2', '0', '7'],
+                },
+                { question: 'England fought which country for 100years?',
+                  answer: 'france',
+                  wrongAnswer: ['germany', 'scotland', 'denmark'],
+                },
             ],
         })
 
