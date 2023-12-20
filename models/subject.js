@@ -21,8 +21,8 @@ subjectSchema.statics.getOneByName = async function (subjectName) {
   return await this.findOne({ subjectName: subjectName })
 }
 
-subjectSchema.statics.createOne = async function (subjectName) {
-  const subject = new this({ subjectName: subjectName });
+subjectSchema.statics.createOne = async function(name) {
+  const subject = new this({ subjectName: name });
   await subject.save();
   return subject;
 };

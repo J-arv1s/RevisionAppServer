@@ -1,4 +1,5 @@
-const { Quiz, Question } = require('../models/quiz')
+const { default: mongoose } = require('mongoose')
+const Quiz = require('../models/quiz')
 
 const index = async (req, res) => {
     const quizzes = await Quiz.find()
@@ -41,9 +42,9 @@ const addQuestion = async (req, res) => {
 }
 
 const removeQuestion = async (req, res) => {
-    const { quizname, questionid } = req.params;
+    const { quizname, id } = req.params;
 
-    const updatedQuiz = await Quiz.deleteQuestion(quizname, questionid);
+    const updatedQuiz = await Quiz.deleteQuestion(quizname, id);
     res.status(200).json(updatedQuiz);
 };
  
