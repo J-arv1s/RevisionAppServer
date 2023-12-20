@@ -28,9 +28,9 @@ describe('Token model', () => {
 
     it('should create a new token', async () => {
 
-        const user = await User.create({ username: 'JohnDoe', password: 'password' });
+        const user = await User.createOne({ username: 'JohnDoe', password: 'password' });
     
-        const token = await TokenModel.create(user._id);
+        const token = await TokenModel.createOne(user._id);
     
         expect(token).toBeDefined();
         expect(token.token).toMatch(/\w+/);
@@ -39,9 +39,9 @@ describe('Token model', () => {
     
       it('should retrieve a token by token value', async () => {
      
-        const user = await User.create({ username: 'JaneSmith', password: 'password' });
+        const user = await User.createOne({ username: 'JaneSmith', password: 'password' });
     
-        const token = await TokenModel.create(user._id);
+        const token = await TokenModel.createOne(user._id);
     
         const retrievedToken = await TokenModel.getOneByToken(token.token);
     

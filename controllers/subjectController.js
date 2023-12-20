@@ -17,8 +17,8 @@ const index = async (req, res) => {
 // }
 
 const show = async (req, res) => {
-    const { subjectname } = req.params
-    const subject = await Subject.getOneByName(subjectname)
+    const { subjectName } = req.params
+    const subject = await Subject.getOneByName(subjectName)
     res.status(200).json(subject)
   }
 
@@ -29,14 +29,27 @@ const create = async (req, res) => {
 }
 
 const destroy = async (req, res) => {
-    const { subjectname } = req.params
-    const subjectDelete = await Subject.findOneAndDelete({subjectName: subjectname})
+    const { subjectName } = req.params
+    const subjectDelete = await Subject.findOneAndDelete({subjectName: subjectName})
     res.status(204).json(subjectDelete)
 }
+
+const update = async (req, res) => {
+    try {
+        const { subjectName } = req.params;
+        const data = req.body;
+
+        const updatedSubject = await Subject.updateOneByName(subjectName, data);
+        res.status(200).json(updatedSubject);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
 
 module.exports = {
     index,
     show,
     create,
-    destroy
+    destroy,
+    update
 }

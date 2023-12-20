@@ -11,8 +11,6 @@ const quizSchema = new Schema({
     questions: [ questionSchema ],
 })
 
-// const Question = mongoose.model('Question', quizSchema)
-
 
 quizSchema.statics.findByName = function (name) {
     return this.findOne({ quizName: name})
@@ -45,17 +43,21 @@ quizSchema.statics.addQuestion = async function (name, newQuestion) {
     return updatedQuiz
 }
 
-quizSchema.methods.removeQuestion = async function (questionID) {
-    try {
-        this.questions.pull({ _id: questionID})
-        await this.save
-        return {message: "Question deleted successfully"}
-
-    } catch (error) {
-        console.error('Error deleting: ', error)
-        throw new Error('Failed to delete question')
+quizSchema.statics.deleteQuestion = async function (name, questionId) {
+    const quiz = await this.findByName(name);
+    if (!quiz) {
+      return { message: "Quiz does not exist" };
     }
-}
+    // Find the index of the question with the given questionId
+    const questionIndex = quiz.questions.findIndex((question) => question._id.toString() === questionId);
+    if (questionIndex === -1) {
+      return { message: "Question does not exist" };
+    }
+    // Remove the question from the questions array
+    quiz.questions.splice(questionIndex, 1);
+    const updatedQuiz = await quiz.save();
+    return updatedQuiz;
+  };
 
 const Quiz = mongoose.model('Quiz', quizSchema)
 

@@ -18,13 +18,17 @@ subjectSchema.statics.getOneById = async function (id) {
 }
 
 subjectSchema.statics.getOneByName = async function (subjectName) {
-  return await this.findOne({ subjectName })
+  return await this.findOne({ subjectName: subjectName })
 }
 
 subjectSchema.statics.createOne = async function(name) {
   const subject = new this({ subjectName: name });
   await subject.save();
   return subject;
+};
+
+subjectSchema.statics.updateOneByName = async function (subjectName, data) {
+  return await this.findOneAndUpdate({ subjectName }, data, { new: true });
 };
 
 const Subject = mongoose.model('Subject', subjectSchema)

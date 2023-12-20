@@ -27,5 +27,9 @@ userSchema.statics.createOne = async function (data) {
     return await newUser.save(); 
   };
 
+userSchema.statics.updateOneByName = async function (username, data) {
+  return await this.findOneAndUpdate({ username }, data, { new: true });
+};
+
 const User = mongoose.model('User', userSchema);
 module.exports = User;

@@ -33,7 +33,7 @@ const destroy = async (req, res) => {
     res.status(204).json(deletedQuiz)
 }
 
-const createQuestion = async (req, res) => {
+const addQuestion = async (req, res) => {
     const { quizname } = req.params
     const questionData = req.body
 
@@ -41,26 +41,19 @@ const createQuestion = async (req, res) => {
     res.status(201).json(updatedQuiz)
 }
 
-const destroyQuestion = async (req, res) => {
-    const name = req.params.quizname
-    const id = req.params.id
-    if (!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error: 'Not a valid id'})
-    }
-    const quizToUpdate = await Quiz.findByName(name)
-    if (!quizToUpdate) {
-        return res.status(404).json({ error: "Quiz not found" });
-    }
-    const updatedQuiz = await quizToUpdate.removeQuestion(id)
-    res.status(204).json(updatedQuiz)
-}
+const removeQuestion = async (req, res) => {
+    const { quizname, id } = req.params;
 
+    const updatedQuiz = await Quiz.deleteQuestion(quizname, id);
+    res.status(200).json(updatedQuiz);
+};
+ 
 module.exports = {
     index,
     show,
     create,
     update,
     destroy,
-    createQuestion,
-    destroyQuestion
+    addQuestion,
+    removeQuestion
 }

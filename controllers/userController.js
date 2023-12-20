@@ -52,11 +52,27 @@ const show = async (req, res) => {
 }
 
 const destroy = async (req, res) => {
-    const { id } = req.params
-    const user_to_delete = await User.findOneAndDelete({_id: id})
-    res.status(204).json(user_to_delete)
+    const { username } = req.params
+    const userToDelete = await User.findOneAndDelete({ username: username })
+    res.status(204).json(userToDelete)
 }
 
+const update = async (req, res) => {
+    try {
+        const { username } = req.params;
+        const data = req.body;
+
+        if (data.password) {
+            data.password = await bcrypt.hash(data.password, 10);
+        }
+
+        const updatedUser = await User.updateOneByName(username, data);
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 module.exports = {
-    index, register, login, show, destroy
+    index, register, login, show, destroy, update
 }
