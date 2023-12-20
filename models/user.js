@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
+  combinedScore: { type: Number, default: 0 },
   // total/average score of subject/quizes
   // scores : [ ref quiz, ref sub -> score  ]
   isAdmin: { type: Boolean, default: false },

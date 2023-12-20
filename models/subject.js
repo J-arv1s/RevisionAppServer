@@ -19,6 +19,10 @@ subjectSchema.statics.getOneById = async function (id) {
 
 subjectSchema.statics.getOneByName = async function (subjectName) {
   return await this.findOne({ subjectName: subjectName })
+  .populate({
+    path: 'quizzesId',
+    select: 'quizName',
+})
 }
 
 subjectSchema.statics.createOne = async function(name) {

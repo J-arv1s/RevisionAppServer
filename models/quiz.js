@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose;
+const Subject = require('./subject')
 
 const questionSchema = new Schema({
     question: String,
     answer: String,
+    wrongAnswers: [String]
 })
 
 const quizSchema = new Schema({
@@ -16,9 +18,15 @@ quizSchema.statics.findByName = function (name) {
     return this.findOne({ quizName: name})
 }
 
-quizSchema.statics.createOne = async function (quizData) {
+quizSchema.statics.createOne = async function (quizData, name) {
     const newQuiz = new this(quizData)
     await newQuiz.save()
+
+    await Subject.findOneAndUpdate({subjectName: name},
+        { $push: { quizzesId: newQuiz._id }},
+        { new: true }
+    )
+
     return newQuiz
 }
 
