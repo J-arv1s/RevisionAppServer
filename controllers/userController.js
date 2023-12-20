@@ -73,6 +73,19 @@ const update = async (req, res) => {
     }
 };
 
+const showScore = async (req, res) => {
+    const { username } = req.params
+    const userScore = await User.getUserScore(username)
+    res.status(200).json(userScore)
+}
+
+const updateScore = async (req, res) => {
+    const { username } = req.params
+    const { score } = req.body
+    const newUserScore = await User.updateUserScore(username, score)
+    res.status(200).json(newUserScore)
+}
+
 module.exports = {
-    index, register, login, show, destroy, update
+    index, register, login, show, destroy, update, showScore, updateScore
 }

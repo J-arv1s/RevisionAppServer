@@ -11,4 +11,9 @@ userRouter.post("/login", userController.login);
 userRouter.delete("/:username", userController.destroy)
 userRouter.patch("/:username", userController.update)
 
+//get,update score
+userRouter.get('/score/:username', userController.showScore)
+userRouter.patch('/score/:username', userController.updateScore)
+
+
 module.exports = userRouter;
