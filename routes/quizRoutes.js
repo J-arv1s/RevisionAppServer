@@ -11,5 +11,6 @@ quizRouter.delete('/:quizname', quizController.destroy)
 
 // question specifics
 quizRouter.post('/question-add/:quizname', quizController.addQuestion)
+// quizRouter.post('/question-remove/:quizname/:id', quizController.removeQuestion)
 
 module.exports = quizRouter

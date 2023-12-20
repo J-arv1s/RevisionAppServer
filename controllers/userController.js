@@ -37,7 +37,7 @@ const login = async (req, res) => {
         if (!authenticated) {
             throw new Error("Incorrect credentials");
         } else {
-            const token = await TokenModel.create(user.id)
+            const token = await TokenModel.createOne(user.id)
             res.status(200).json({ message: "Logged in", authenticated: true, token: token.token })
         }
     } catch (err) {
