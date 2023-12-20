@@ -1,6 +1,6 @@
 const User = require('../models/user')
 const Subject = require('../models/subject')
-const quiz = require('../models/quiz')
+const Quiz = require('../models/quiz')
 const TokenModel = require('../models/token')
 
 
@@ -9,7 +9,7 @@ const seed_DB = async () => {
         // Clearing exisiting data in our collections/models
         await User.deleteMany({})
         await Subject.deleteMany({})
-        await quiz.deleteMany({})
+        await Quiz.deleteMany({})
         await TokenModel.deleteMany({})
 
         // Inserting sample data into our collections/models
@@ -20,32 +20,32 @@ const seed_DB = async () => {
         ])
 
         const subjects = await Subject.insertMany([
-            { subject_name: 'science', quizes: [] },
-            { subject_name: 'history', quizes: [] },
+            { subjectName: 'science', quizzes: [] },
+            { subjectName: 'history', quizzes: [] },
         ])
 
-        const science_quiz = await quiz.create({
-            quiz_name: 'science_quiz', 
+        const scienceQuiz = await Quiz.create({
+            quizName: 'science-quiz', 
             questions: [
                 { question: 'Chemincal compound of water?', answer: 'h2o' },
                 { question: 'Humans breath what?', answer: 'oxygen' },
             ],
         })
 
-        const history_quiz = await quiz.create({
-            quiz_name: 'history_quiz', 
+        const historyQuiz = await Quiz.create({
+            quizName: 'history-quiz', 
             questions: [
                 { question: 'Henry VII had x wives?', answer: '6' },
                 { question: 'England fought which country for 100years?', answer: 'france' },
             ],
         })
 
-        const [science_subject, history_subject] = subjects
-        science_subject.quizes.push(science_quiz._id)
-        history_subject.quizes.push(history_quiz._id)
+        const [scienceSubject, historySubject] = subjects
+        scienceSubject.quizzes.push(scienceQuiz._id)
+        historySubject.quizzes.push(historyQuiz._id)
         
-        await science_subject.save()
-        await history_subject.save()
+        await scienceSubject.save()
+        await historySubject.save()
 
     } catch (error) {
         console.log(`Error seeding database: ${error}`)

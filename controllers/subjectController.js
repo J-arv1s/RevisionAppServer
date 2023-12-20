@@ -16,7 +16,6 @@ const index = async (req, res) => {
 //     res.status(200).json(sub)
 // }
 
-
 const show = async (req, res) => {
     const { subject_name } = req.params
     const subject = await Subject.getOneByName(subject_name)
