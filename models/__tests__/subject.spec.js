@@ -27,15 +27,15 @@ describe('Subject model', () => {
 
     it('should create a new subject', async () => {
         const subject_name = 'Mathematics';
-        const subject = await Subject.create(subject_name);
+        const subject = await Subject.createOne(subject_name);
         expect(subject.subject_name).toBe(subject_name);
       });
     
       it('should retrieve a subject by its name', async () => {
         const subject_name = 'Science';
-        await Subject.create(subject_name);
+        await Subject.createOne(subject_name);
         const subject = await Subject.getOneByName(subject_name);
         expect(subject.subject_name).toBe(subject_name);
       });
-          
+    
 })

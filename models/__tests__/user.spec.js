@@ -31,7 +31,7 @@ describe('User model', () => {
       });
 
       it('should retrieve a user by ID', async () => {
-        const createdUser = await User.create({ username: 'Tahha', password: 'password1' });
+        const createdUser = await User.createOne({ username: 'Tahha', password: 'password1' });
   
         const user = await User.getOneById(createdUser._id);
   
