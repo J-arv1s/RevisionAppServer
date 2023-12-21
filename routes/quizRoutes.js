@@ -4,6 +4,8 @@ const quizController = require('../controllers/quizController')
 const quizRouter = Router()
 const questionRouter = Router()
 
+
+
 quizRouter.get('/', quizController.index)
 quizRouter.get('/:quizname', quizController.show)
 quizRouter.post('/', quizController.create)
