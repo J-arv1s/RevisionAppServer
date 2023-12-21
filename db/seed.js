@@ -7,22 +7,11 @@ const TokenModel = require('../models/token')
 const seed_DB = async () => {
     try {
         // Clearing exisiting data in our collections/models
-        await User.deleteMany({})
         await Subject.deleteMany({})
         await Quiz.deleteMany({})
         await TokenModel.deleteMany({})
 
         // Inserting sample data into our collections/models
-        await User.insertMany([
-            { username: 'jarvis', password: '123', combinedScore: 1 },
-            { username: 'tahha', password: '123', combinedScore: 4 },
-            { username: 'admin', password: 'admin', isAdmin: true },
-        ])
-
-        // const subjects = await Subject.insertMany([
-        //     { subjectName: 'science', quizzes: [] },
-        //     { subjectName: 'history', quizzes: [] },
-        // ])
 
         const scienceSubject = await Subject.create({
             subjectName: 'science',
