@@ -7,22 +7,11 @@ const TokenModel = require('../models/token')
 const seed_DB = async () => {
     try {
         // Clearing exisiting data in our collections/models
-        await User.deleteMany({})
         await Subject.deleteMany({})
         await Quiz.deleteMany({})
         await TokenModel.deleteMany({})
 
         // Inserting sample data into our collections/models
-        await User.insertMany([
-            { username: 'jarvis', password: '123', combinedScore: 1 },
-            { username: 'tahha', password: '123', combinedScore: 4 },
-            { username: 'admin', password: 'admin', isAdmin: true },
-        ])
-
-        // const subjects = await Subject.insertMany([
-        //     { subjectName: 'science', quizzes: [] },
-        //     { subjectName: 'history', quizzes: [] },
-        // ])
 
         const scienceSubject = await Subject.create({
             subjectName: 'science',
@@ -84,11 +73,11 @@ const seed_DB = async () => {
             questions: [
                 { question: 'Henry VII had x wives?',
                   answer: '6',
-                  wrongAnswer: ['2', '0', '7'],
+                  wrongAnswers: ['2', '0', '7'],
                 },
                 { question: 'England fought which country for 100years?',
                   answer: 'france',
-                  wrongAnswer: ['germany', 'scotland', 'denmark'],
+                  wrongAnswers: ['germany', 'scotland', 'denmark'],
                 },
                 { question: 'World war 1 lasted for how many years?', 
                   answer: '4',
@@ -130,7 +119,9 @@ const seed_DB = async () => {
         
         await scienceSubject.save()
         await historySubject.save()
-
+        await scienceQuiz.save()
+        await historyQuiz.save()
+        console.log('Finished seeding, exit now')
     } catch (error) {
         console.log(`Error seeding database: ${error}`)
     }
