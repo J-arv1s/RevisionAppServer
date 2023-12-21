@@ -3,8 +3,13 @@ const { Schema } = mongoose;
 const { v4: uuidv4 } = require("uuid")
 
 const tokenSchema = new Schema({
-  user_id: { type: mongoose.SchemaTypes.ObjectId, ref: 'user', required: true },
-  token: { type: String, required: true },
+  user_id: { 
+    type: mongoose.SchemaTypes.ObjectId, 
+    ref: 'user', 
+    required: true },
+  token: { 
+    type: String, 
+    required: true },
 });
 
 tokenSchema.statics.createOne = async function(user_id) { 

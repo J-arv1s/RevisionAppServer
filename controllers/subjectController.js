@@ -6,16 +6,6 @@ const index = async (req, res) => {
     res.status(200).json(subjects)
 }
 
-// const show = async (req, res) => {
-//     const { subjectname } = req.params
-//     const sub = await Subject.getOneByName( { subject_name: subjectname })
-//         .populate({
-//             path: 'quizes',
-//             select: 'quiz_name',
-//         })
-//     res.status(200).json(sub)
-// }
-
 const show = async (req, res) => {
     const { subjectName } = req.params
     const subject = await Subject.getOneByName(subjectName)

@@ -33,7 +33,7 @@ quizSchema.statics.createOne = async function (quizData, name) {
 quizSchema.statics.updateByName = async function (name, updateData) {
     const quiz = await this.findByName(name)
     // if update_data has a quiz_name then it is assigned to quiz otherwise it keeps what it already has
-    quiz.name = updateData.quizName || quiz.name
+    quiz.quizName = updateData.quizName || quiz.quizName
     
     const updatedQuiz = await quiz.save()
     return updatedQuiz
@@ -56,16 +56,19 @@ quizSchema.statics.deleteQuestion = async function (name, questionId) {
     if (!quiz) {
       return { message: "Quiz does not exist" };
     }
-    // Find the index of the question with the given questionId
-    const questionIndex = quiz.questions.findIndex((question) => question._id.toString() === questionId);
+
+    const questionIndex = quiz.questions
+        .findIndex((question) => question._id
+        .toString() === questionId);
+    
     if (questionIndex === -1) {
       return { message: "Question does not exist" };
     }
-    // Remove the question from the questions array
+
     quiz.questions.splice(questionIndex, 1);
     const updatedQuiz = await quiz.save();
     return updatedQuiz;
-  };
+};
 
 const Quiz = mongoose.model('Quiz', quizSchema)
 
